@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
+    integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
+    crossorigin="anonymous"></script>
+  <!-- pyscript css -->
+  <link rel="stylesheet" href="https://pyscript.net/releases/2022.12.1/pyscript.css" />
+  <script defer src="https://pyscript.net/releases/2022.12.1/pyscript.js"></script>
+  <script src="/static/index.js" defer></script>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+  <div class="loader">
+    <div class="lds-dual-ring"></div>
+    <div id="loader-text">Loading...</div>
+  </div>
+  <div class="page page1">
+    <form class="form1">
+      <select name="type" id="">
+        <option value="Car">Car</option>
+        <option value="Tester">Tester</option>
+      </select>
+      <input required type="text" name="name" placeholder="Enter Name" />
+      <button>Request Keys</button>
+    </form>
+  </div>
+  <div class="page hide page2">
+    <p>
+    <h2>
+      Your Keys
+    </h2>
+    </p>
+    <p>
+      <span>
+        public key:
+      </span>
+      <textarea class="my-public-key" placeholder="Your Public key"></textarea>
+    </p>
+    <p>
+      <span>
+        private key:
+      </span>
+      <textarea class="my-private-key" placeholder="Your Private Key"></textarea>
+    </p>
+    <p>
+      <span>
+        sid :
+      </span>
+      <textarea class="my-sid" placeholder="Your ID"></textarea>
+    </p>
+  </div>
+  <div class="page hide page3">
+    <h2>
+      Public Keys in PKI
+    </h2>
+    <table border="1px">
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Public Key</th>
+      </tr>
+      <tbody class="public-key-list">
+        <tr><td colspan="3">No Devices Connected</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page hide page4 data to-tester">
+    <textarea id="software_inp" class="software_inp" type="text" name="name" placeholder="Enter software" ></textarea>
+    <button id="update-btn" py-click="send_soft_py()">
+      Send Software To Cars
+    </button>
+  </div>
+  <div class="page hide page5 to-car">
+    <div class="container">
+      <p class="cell">
+        <span>encrypted-data</span>
+        <textarea id="encrypted-data" placeholder="encrypted-data"></textarea>
+      </p>
+      <p class="cell">
+        <button py-click="decrypt()" id="decrypt-btn">Decrypt</button>
+      </p>
+      <p class="cell">
+        <span>decrypted-data</span>
+        <textarea id="decrypted-data" placeholder="decrypted-data"></textarea>
+      </p>
+    </div>
+      <p class="container container2">
+        <span>signature</span>
+        <textarea id="signature" placeholder="signature"></textarea>
+        <button id="verify-btn" py-click="verify()">Verify</button>
+        <div id="verify-status"></div>
+      </p>
+    </div>
+    <div class="page hide">
+      <button onclick="disconnect()" class="disconnect">disconnect</button>
+    </div>
+    <py-config> packages = ["rsa","cryptography"] </py-config>
+    <py-script src="/static/client.py">
+
+    </py-script>
+</body>
+
+</html>
