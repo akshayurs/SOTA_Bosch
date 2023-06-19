@@ -93,6 +93,9 @@ textarea{
 .page1 input{
     border:none;
 }
+.page1 form{
+    text-align: center;
+}
 .page2{
     background-color: #c5dae0;
 }
