@@ -1,5 +1,5 @@
 console.log('Started')
-var url = 'http://localhost:5000'
+var url = location.origin
 var socket = io.connect(url)
 var users = {}
 var software

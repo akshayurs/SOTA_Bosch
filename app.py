@@ -41,6 +41,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
     keys[request.sid]['type'] = type
     keys[request.sid]['public_key'] = new_keys[1]
     join_room(type)
+    print(name)
     socketio.emit('new_key_res', {
                   "private_key": new_keys[0], "public_key": new_keys[1], "sid": request.sid}, room=request.sid)
     socketio.emit('new_user_keys', keys)
